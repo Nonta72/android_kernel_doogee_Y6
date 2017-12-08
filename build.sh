@@ -15,4 +15,3 @@ make -C $PWD O=$PWD/out ARCH=arm64 hct6750_66_n_defconfig
 #make ARCH=arm64 k6000_plus_defconfig
 
 make -j4 -C $PWD O=$PWD/out ARCH=arm64
-#make -j4 ARCH=arm64
