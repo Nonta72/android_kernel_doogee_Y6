@@ -23,6 +23,17 @@
 #include <linux/slab.h>
 
 #include <linux/hct_include/hct_project_all_config.h>
+
+#ifdef CONFIG_TOUCHSCREEN_PREVENT_SLEEP
+#ifdef CONFIG_TOUCHSCREEN_SWEEP2WAKE
+#include <linux/input/sweep2wake.h>
+#endif
+#ifdef CONFIG_TOUCHSCREEN_DOUBLETAP2WAKE
+#include <linux/input/doubletap2wake.h>
+#endif
+#endif
+
+
 #define KPD_NAME	"mtk-kpd"
 
 #define HALL_NAME	"mtk-hall"
@@ -1249,10 +1260,17 @@ static int kpd_pdrv_probe(struct platform_device *pdev)
 #ifdef KPD_KEY_MAP
 	__set_bit(KPD_KEY_MAP, kpd_input_dev->keybit);
 #endif
-#ifdef CONFIG_MTK_MRDUMP_KEY
-		__set_bit(KEY_RESTART, kpd_input_dev->keybit);
+
+#ifdef CONFIG_TOUCHSCREEN_PREVENT_SLEEP
+#ifdef CONFIG_TOUCHSCREEN_SWEEP2WAKE
+	sweep2wake_setdev(kpd_input_dev);
 #endif
-	kpd_input_dev->dev.parent = &pdev->dev;
+#ifdef CONFIG_TOUCHSCREEN_DOUBLETAP2WAKE
+	doubletap2wake_setdev(kpd_input_dev);
+#endif
+#endif
+
+kpd_input_dev->dev.parent = &pdev->dev;
 	r = input_register_device(kpd_input_dev);
 	if (r) {
 		kpd_info("register input device failed (%d)\n", r);
