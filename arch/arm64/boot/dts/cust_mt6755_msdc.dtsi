@@ -144,7 +144,7 @@
 		datwrddly      = /bits/ 8 <0>;
 		cmdrrddly      = /bits/ 8 <0>;
 		cmdrddly       = /bits/ 8 <0>;
-        cmd_edge = /bits/ 8 <MSDC_SMPL_RISING>;
+                cmd_edge   = /bits/ 8 <MSDC_SMPL_RISING>;
 		rdata_edge = /bits/ 8 <MSDC_SMPL_FALLING>;
 		wdata_edge = /bits/ 8 <MSDC_SMPL_FALLING>;
 	};
